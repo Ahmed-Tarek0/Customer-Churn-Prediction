@@ -97,7 +97,7 @@ Input → Dense(32, relu) → Dense(16, relu) → Dropout(0.3) → Dense(8, relu
 | 0.5       | 79%      | 0.62              | 0.50           | 0.55             |
 | 0.6       | 79%      | 0.69              | 0.39           | 0.50             |
 
-![Neural Network Training Curves](./assets/nn_loss_accuracy_curves.png)
+![Neural Network Training Curves](./assets/Loss_Acc_NN_Curvers.png)
 
 The training curves show validation loss flattening around epoch 10–12 while training loss keeps decreasing — a sign of mild overfitting that Early Stopping was configured to catch. Validation accuracy plateaus around **~80%**, consistent with the final test accuracy.
 
