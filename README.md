@@ -60,7 +60,7 @@ Customer churn — when a customer stops doing business with a company — is on
   - **Binary feature** (`SeniorCitizen`) → passthrough
 
 ### Models Compared
-Five classification algorithms were trained and evaluated using cross-validation:
+Six classification approaches were trained and evaluated:
 
 | Model |
 |---|
@@ -69,8 +69,36 @@ Five classification algorithms were trained and evaluated using cross-validation
 | Support Vector Machine (SVM) |
 | Decision Tree |
 | Random Forest |
+| Neural Network (Keras / TensorFlow) |
 
-Each model was tuned using **`GridSearchCV`** (10-fold cross-validation) optimized for **F1-score**, since the dataset is imbalanced and both false positives and false negatives carry business cost.
+The first five classical models were tuned using **`GridSearchCV`** (10-fold cross-validation) optimized for **F1-score**, since the dataset is imbalanced and both false positives and false negatives carry business cost.
+
+### Neural Network (Deep Learning Approach)
+A feed-forward neural network was also built and trained using **Keras/TensorFlow** as an alternative to the classical models:
+
+```
+Input → Dense(32, relu) → Dense(16, relu) → Dropout(0.3) → Dense(8, relu) → Dense(1, sigmoid)
+```
+
+- **Total parameters:** 4,997
+- **Optimizer:** Adam | **Loss:** Binary Crossentropy
+- **Regularization:** Dropout (0.3) + Early Stopping (monitoring validation loss, patience=10)
+- **Test accuracy:** 78.6% | **Test loss:** 0.430
+
+**Threshold tuning results (Neural Network):**
+
+| Threshold | Accuracy | Precision (Churn) | Recall (Churn) | F1-Score (Churn) |
+|---|---|---|---|---|
+| 0.3 | 75% | 0.52 | 0.76 | 0.62 |
+| 0.4 | 78% | 0.59 | 0.60 | 0.59 |
+| 0.5 | 79% | 0.62 | 0.50 | 0.55 |
+| 0.6 | 79% | 0.69 | 0.39 | 0.50 |
+
+![Neural Network Training Curves](./assets/nn_loss_accuracy_curves.png)
+
+The training curves show validation loss flattening around epoch 10–12 while training loss keeps decreasing — a sign of mild overfitting that Early Stopping was configured to catch. Validation accuracy plateaus around **~80%**, consistent with the final test accuracy.
+
+The neural network performed competitively but did not outperform the tuned Logistic Regression model on F1-score for the churn class, while being considerably more complex and expensive to train. This reinforced choosing a simpler, more interpretable model for production use.
 
 ### 🏆 Best Model: Logistic Regression
 - **Hyperparameters:** `C=10`, `solver='lbfgs'`
@@ -149,6 +177,7 @@ An interactive Power BI dashboard was built to make the analysis accessible to n
 | Data Manipulation | pandas, numpy |
 | Visualization | matplotlib, seaborn |
 | Machine Learning | scikit-learn |
+| Deep Learning | TensorFlow / Keras |
 | Dashboarding | Power BI |
 | Environment | Jupyter Notebook |
 
@@ -172,6 +201,7 @@ telco-customer-churn/
 │   ├── confusion_matrix.png
 │   ├── roc_curve.png
 │   ├── feature_importance.png
+│   ├── nn_loss_accuracy_curves.png
 │   ├── dashboard_preview_1.png
 │   └── dashboard_preview_2.png
 │
