@@ -108,14 +108,14 @@ Each model was tuned using **`GridSearchCV`** (10-fold cross-validation) optimiz
 </tr>
 </table>
 
-![Confusion Matrix](./assets/Confusion_Matrix.png)
-![ROC Curve](./assets/ROC_Curve.png)
+![Confusion Matrix](./assets/confusion_matrix.png)
+![ROC Curve](./assets/roc_curve.png)
 
 The model achieves a strong **ROC-AUC of 0.832**, indicating good separability between churned and retained customers. The threshold was intentionally lowered to 0.4 to prioritize **recall**, since failing to identify an at-risk customer (false negative) is typically more costly to the business than a false alarm.
 
 ### Feature Importance
 
-![Feature Importance](./assets/Feature_Importance.png)
+![Feature Importance](./assets/feature_importance.png)
 
 Top drivers of churn (by logistic regression coefficient magnitude):
 - `InternetService_Fiber optic` — strongest positive driver of churn
@@ -169,9 +169,9 @@ telco-customer-churn/
 │   └── Customer_Churn_Dashboard.pbix
 │
 ├── assets/
-│   ├── Confusion_Matrix.png
-│   ├── ROC_Curve.png
-│   ├── Feature_Importance.png
+│   ├── confusion_matrix.png
+│   ├── roc_curve.png
+│   ├── feature_importance.png
 │   ├── dashboard_preview_1.png
 │   └── dashboard_preview_2.png
 │
