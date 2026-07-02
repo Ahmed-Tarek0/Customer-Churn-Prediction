@@ -13,8 +13,8 @@ An end-to-end data science project that analyzes customer churn behavior for a t
 
 Customer churn — when a customer stops doing business with a company — is one of the most critical metrics for subscription-based businesses like telecom providers. This project combines **exploratory data analysis (EDA)**, **machine learning classification**, and **business intelligence dashboarding** to:
 
-1. Understand _why_ customers churn.
-2. Predict _which_ customers are likely to churn.
+1. Understand *why* customers churn.
+2. Predict *which* customers are likely to churn.
 3. Present actionable insights to stakeholders in a clean, interactive dashboard.
 
 ---
@@ -26,12 +26,12 @@ Customer churn — when a customer stops doing business with a company — is on
 - **Features:** 21 columns, including demographics, account information, subscribed services, and billing details
 - **Target variable:** `Churn` (Yes / No)
 
-| Category     | Example Features                                                                                     |
-| ------------ | ---------------------------------------------------------------------------------------------------- |
-| Demographics | `gender`, `SeniorCitizen`, `Partner`, `Dependents`                                                   |
-| Account Info | `tenure`, `Contract`, `PaperlessBilling`, `PaymentMethod`                                            |
-| Services     | `PhoneService`, `InternetService`, `OnlineSecurity`, `TechSupport`, `StreamingTV`, `StreamingMovies` |
-| Billing      | `MonthlyCharges`, `TotalCharges`                                                                     |
+| Category | Example Features |
+|---|---|
+| Demographics | `gender`, `SeniorCitizen`, `Partner`, `Dependents` |
+| Account Info | `tenure`, `Contract`, `PaperlessBilling`, `PaymentMethod` |
+| Services | `PhoneService`, `InternetService`, `OnlineSecurity`, `TechSupport`, `StreamingTV`, `StreamingMovies` |
+| Billing | `MonthlyCharges`, `TotalCharges` |
 
 ---
 
@@ -52,7 +52,6 @@ Customer churn — when a customer stops doing business with a company — is on
 ## 🤖 Machine Learning Pipeline
 
 ### Preprocessing
-
 - Removed rows with missing `TotalCharges` values and converted the column to numeric.
 - Dropped the non-predictive `customerID` column.
 - Built a `ColumnTransformer` pipeline:
@@ -61,21 +60,19 @@ Customer churn — when a customer stops doing business with a company — is on
   - **Binary feature** (`SeniorCitizen`) → passthrough
 
 ### Models Compared
-
 Five classification algorithms were trained and evaluated using cross-validation:
 
-| Model                        |
-| ---------------------------- |
-| Logistic Regression          |
-| K-Nearest Neighbors (KNN)    |
+| Model |
+|---|
+| Logistic Regression |
+| K-Nearest Neighbors (KNN) |
 | Support Vector Machine (SVM) |
-| Decision Tree                |
-| Random Forest                |
+| Decision Tree |
+| Random Forest |
 
 Each model was tuned using **`GridSearchCV`** (10-fold cross-validation) optimized for **F1-score**, since the dataset is imbalanced and both false positives and false negatives carry business cost.
 
 ### 🏆 Best Model: Logistic Regression
-
 - **Hyperparameters:** `C=10`, `solver='lbfgs'`
 - **Decision threshold:** 0.4 (tuned to improve recall on the churn class)
 
@@ -89,23 +86,23 @@ Each model was tuned using **`GridSearchCV`** (10-fold cross-validation) optimiz
 
 **Confusion Matrix**
 
-|                 | Predicted: No | Predicted: Yes |
-| --------------- | ------------- | -------------- |
-| **Actual: No**  | 858           | 175            |
-| **Actual: Yes** | 133           | 241            |
+| | Predicted: No | Predicted: Yes |
+|---|---|---|
+| **Actual: No** | 858 | 175 |
+| **Actual: Yes** | 133 | 241 |
 
 </td>
 <td>
 
 **Metrics**
 
-| Metric            | Score |
-| ----------------- | ----- |
-| Accuracy          | 78.1% |
+| Metric | Score |
+|---|---|
+| Accuracy | 78.1% |
 | Precision (Churn) | 57.9% |
-| Recall (Churn)    | 64.4% |
-| F1-Score (Churn)  | 61.0% |
-| ROC-AUC           | 0.832 |
+| Recall (Churn) | 64.4% |
+| F1-Score (Churn) | 61.0% |
+| ROC-AUC | 0.832 |
 
 </td>
 </tr>
@@ -121,11 +118,10 @@ The model achieves a strong **ROC-AUC of 0.832**, indicating good separability b
 ![Feature Importance](./assets/feature_importance.png)
 
 Top drivers of churn (by logistic regression coefficient magnitude):
-
 - `InternetService_Fiber optic` — strongest positive driver of churn
 - `tenure` — strongest negative driver (longer tenure → less churn)
 - `Contract_Two year` / `Contract_One year` — long-term contracts reduce churn risk
-- `MonthlyCharges` — higher charges are associated with lower churn likelihood _(coefficient direction; see notebook for full interpretation in context of correlated features)_
+- `MonthlyCharges` — higher charges are associated with lower churn likelihood *(coefficient direction; see notebook for full interpretation in context of correlated features)*
 - `TotalCharges`, `StreamingTV`, `StreamingMovies`, `PaperlessBilling`, `PaymentMethod_Electronic check` — additional positive churn indicators
 
 ---
@@ -138,7 +134,6 @@ An interactive Power BI dashboard was built to make the analysis accessible to n
 ![Dashboard Detail View](./assets/dashboard_preview_2.png)
 
 **Dashboard highlights:**
-
 - KPI cards: Total Customers, Churned Customers, Churn Rate, Average Monthly Charges, Average Customer Tenure
 - Churn Rate breakdown by Contract, Payment Method, Internet Service, Senior Citizen, Tech Support, Online Security, Dependents
 - Cross-tabulated matrix: Churn Rate by Contract × Payment Method
@@ -148,14 +143,14 @@ An interactive Power BI dashboard was built to make the analysis accessible to n
 
 ## 🛠️ Tech Stack
 
-| Category          | Tools               |
-| ----------------- | ------------------- |
-| Language          | Python 3.10+        |
-| Data Manipulation | pandas, numpy       |
-| Visualization     | matplotlib, seaborn |
-| Machine Learning  | scikit-learn        |
-| Dashboarding      | Power BI            |
-| Environment       | Jupyter Notebook    |
+| Category | Tools |
+|---|---|
+| Language | Python 3.10+ |
+| Data Manipulation | pandas, numpy |
+| Visualization | matplotlib, seaborn |
+| Machine Learning | scikit-learn |
+| Dashboarding | Power BI |
+| Environment | Jupyter Notebook |
 
 ---
 
@@ -170,7 +165,7 @@ telco-customer-churn/
 ├── notebook/
 │   └── Customer_Churn_Notebook.ipynb
 │
-├── dashboard/
+├── Dashboard/
 │   └── Customer_Churn_Dashboard.pbix
 │
 ├── assets/
@@ -183,9 +178,24 @@ telco-customer-churn/
 └── README.md
 ```
 
-### View the Dashboard
+---
 
-Open `dashboard/Customer_Churn_Dashboard.pbix` in **Power BI Desktop**.
+## 🚀 Getting Started
+
+### Prerequisites
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn jupyter
+```
+
+### Run the Notebook
+```bash
+git clone https://github.com/<your-username>/telco-customer-churn.git
+cd telco-customer-churn
+jupyter notebook notebook/Customer_Churn_Notebook.ipynb
+```
+
+### View the Dashboard
+Open `Dashboard/Customer_Churn_Dashboard.pbix` in **Power BI Desktop**.
 
 ---
 
